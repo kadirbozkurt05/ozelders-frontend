@@ -6,10 +6,10 @@ export default function Logo() {
   return (
     <img
       alt="logo"
-      className="cursor-pointer"
+      className="cursor-pointer hidden md:block"
       height={100}
       width={100}
-      src="https://wilsonclinic.com/wp-content/uploads/2018/12/placeholder-logo-2.png"
+      src="/logo.svg"
       onClick={() => navigate("/")}
     />
   );
