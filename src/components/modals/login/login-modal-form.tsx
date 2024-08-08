@@ -77,7 +77,7 @@ export default function LoginModalForm() {
         />
         <div className="flex flex-col gap-2">
           <div className="flex flex-row items-center gap-4 w-full">
-            <Button type="submit" variant={"custom"} disabled={isLoading}>
+            <Button type="submit" className="bg-rose-400" variant={"custom"} disabled={isLoading}>
               Giris yapin
             </Button>
           </div>

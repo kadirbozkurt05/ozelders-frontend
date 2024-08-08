@@ -100,7 +100,7 @@ export default function RegisterModalForm() {
         <Button
           type="submit"
           variant={"custom"}
-          className="w-full"
+          className="w-full bg-rose-400"
           disabled={isLoading}
         >
           Kayit olun
