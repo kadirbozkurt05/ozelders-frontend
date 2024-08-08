@@ -7,6 +7,7 @@ import Home from "./pages/home/home";
 
 import LoginModal from "./components/modals/login/login-modal";
 import RegisterModal from "./components/modals/register/register-modal";
+import TermsOfService from "./pages/terms/termsOfService";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <div className="w-full min-h-screen pt-12 lg:pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/terms" element={<TermsOfService />} />
           </Routes>
         </div>
       </Router>
