@@ -1,33 +1,41 @@
 export const categories = [
   {
+    id: "1",
     label: "Matematik",
     icon: "/logo.svg",
   },
   {
+    id: "2",
     label: "Fizik",
     icon: "/logo.svg",
   },
   {
+    id: "3",
     label: "Kimya",
     icon: "/logo.svg",
   },
   {
+    id: "4",
     label: "Biyoloji",
     icon: "/logo.svg",
   },
   {
+    id: "5",
     label: "Tarih",
     icon: "/logo.svg",
   },
   {
+    id: "6",
     label: "Coğrafya",
     icon: "/logo.svg",
   },
   {
+    id: "7",
     label: "İngilizce",
     icon: "/logo.svg",
   },
   {
+    id: "8",
     label: "Türkçe",
     icon: "/logo.svg",
   },

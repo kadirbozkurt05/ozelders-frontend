@@ -5,3 +5,8 @@ export type TUser = {
   email: string;
   createdAt: Date;
 };
+
+export type TLesson = {
+  _id: string;
+  label: string;
+};

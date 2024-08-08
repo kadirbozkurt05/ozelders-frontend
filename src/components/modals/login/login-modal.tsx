@@ -6,7 +6,6 @@ import Heading from "@/components/heading";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
-
 import { useState, useEffect } from "react";
 
 export default function LoginModal() {

@@ -1,12 +1,13 @@
+import Avatar from "./avatar";
+import useLoginModal from "../modals/login/use-login-modal";
+
 import { useCallback, useState } from "react";
 import { useUser } from "@/contexts/user-context";
-import useLoginModal from "../modals/login/use-login-modal";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
 import { IoIosMenu } from "react-icons/io";
 
-import Avatar from "./avatar";
+
 
 export default function ProfileMenu() {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function ProfileMenu() {
           <div className="flex flex-row items-center text-sm gap-2 lg:gap-4">
             <div
               className="p-1 lg:px-4 lg:py-2 hover:bg-accent"
-              onClick={() => loginModal.open()}
+              onClick={() => navigate("/teacher-register")}
             >
               Ders verin
             </div>
@@ -62,8 +63,12 @@ export default function ProfileMenu() {
         )}
       </div>
       {isOpen && user && (
-        <div className="absolute w-64 bg-white right-0 top-8 lg:top-10 rounded-sm shadow-md overflow-hidden z-20 text-black p-5 text-sm">
+        <div className="absolute w-64 bg-white right-0 top-8 lg:top-10 rounded-sm shadow-md overflow-hidden z-50 text-black p-5 text-sm">
           <div className="flex flex-col cursor-pointer">
+            <ProfileMenuItem onClick={() => handleLogout()} label="Logout" />
+            <ProfileMenuItem onClick={() => handleLogout()} label="Logout" />
+            <ProfileMenuItem onClick={() => handleLogout()} label="Logout" />
+            <ProfileMenuItem onClick={() => handleLogout()} label="Logout" />
             <ProfileMenuItem onClick={() => handleLogout()} label="Logout" />
           </div>
         </div>
