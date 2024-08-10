@@ -1,13 +1,15 @@
 import Container from "@/components/container";
+import Lessons from "./lessons";
+import Info from "./info";
+import Location from "./location";
+import Place from "./place";
 
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { FormCheckbox } from "@/components/form-elements";
-import { Input } from "@/components/ui/input";
-import { useState, useEffect } from "react";
-import { TLesson } from "@/lib/types";
+import { useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const TeacherRegisterSchema = z.object({
   firstname: z.string().min(2, { message: "Adiniz en az 2 karakter olmali." }),
@@ -24,7 +26,8 @@ const TeacherRegisterSchema = z.object({
   lessonplaces: z
     .array(z.string())
     .nonempty({ message: "En az bir ders yeri secmelisiniz." }),
-  location: z.string().min(2, { message: "Lutfen bir konum seciniz." }),
+  city: z.string().min(2, { message: "Lutfen bir konum seciniz." }),
+  district: z.string().min(2, { message: "Lutfen bir konum seciniz." }),
 });
 
 export default function TeacherRegister() {
@@ -37,46 +40,84 @@ export default function TeacherRegister() {
       email: "",
       lessons: [],
       lessonplaces: [],
-      location: "",
+      city: "",
+      district: "",
     },
   });
 
-  const [search, setSearch] = useState<string>("");
-  console.log("search", search);
+  enum STEPS {
+    INFO = 0,
+    LESSONS = 1,
+    LOCATION = 2,
+    PLACE = 3,
+  }
 
-  const [items, setItems] = useState<TLesson[]>([]);
+  const [step, setStep] = useState(STEPS.INFO);
 
-  useEffect(() => {
-    const fetchLessons = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/lesson?search=${search}`
-      );
-      const data = await response.json();
-      setItems(data);
-    };
+  async function handleSubmit(data: any) {
+    console.log("submitted", data);
+    console.log(data);
+  }
 
-    fetchLessons();
-  }, [search]);
+  const nextStep = () => {
+    if (step === STEPS.PLACE) {
+      return;
+    }
+    setStep((value) => value + 1);
+  };
 
-  console.log(form.watch("lessons"));
+  const prevStep = () => {
+    if (step === STEPS.INFO) {
+      return;
+    }
+    setStep((value) => value - 1);
+  };
+
+  const nextLabel = useMemo(() => {
+    if (step === STEPS.PLACE) {
+      return "Kaydet";
+    }
+    return "Devam";
+  }, [step]);
+
+  const prevLabel = useMemo(() => {
+    if (step === STEPS.INFO) {
+      return "Iptal";
+    }
+    return "Geri";
+  }, [step]);
+
   return (
     <Container>
-      <p>{form.watch("lessons")}</p>
+      {step === STEPS.LESSONS && <p>{form.watch("lessons")}</p>}
+      {/* <p>{form.watch("lessons")}</p> */}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(() => {})} className="flex flex-col">
-          <Input
-            type="text"
-            placeholder="Vermek istediginiz dersi girin"
-            onChange={(e) => setSearch(e.currentTarget.value)}
-          />
-          <FormCheckbox
-            control={form.control}
-            placeholder="Vermek istediginiz dersleri secin"
-            name="lessons"
-            items={items}
-          />
+        <form className="flex flex-col">
+          {step === STEPS.INFO && <Info control={form.control} />}
+          {step === STEPS.LESSONS && <Lessons control={form.control} />}
+          {step === STEPS.LOCATION && <Location form={form} />}
+          {step === STEPS.PLACE && <Place control={form.control} />}
         </form>
       </Form>
+      <div className="flex flex-row gap-4 mt-4 lg:mt-8">
+        <Button variant={"outline"} onClick={prevStep}>
+          {prevLabel}
+        </Button>
+        {step !== STEPS.PLACE && (
+          <Button variant={"outline"} onClick={nextStep}>
+            {nextLabel}
+          </Button>
+        )}
+        {step === STEPS.PLACE && (
+          <Button
+            className="bg-rose-400"
+            variant={"custom"}
+            onClick={form.handleSubmit(handleSubmit)}
+          >
+            Kaydet
+          </Button>
+        )}
+      </div>
     </Container>
   );
 }

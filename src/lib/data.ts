@@ -376,3 +376,4 @@ export const categories = [
     icon: "/logo.svg",
   }
 ];
+

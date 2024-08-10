@@ -22,6 +22,7 @@ type TFormInput = {
   type: string;
   className?: string;
   label: string;
+  pattern?: string;
 };
 
 export function FormInput({
@@ -31,6 +32,7 @@ export function FormInput({
   placeholder,
   type,
   className,
+  pattern,
 }: TFormInput) {
   return (
     <>
@@ -46,6 +48,7 @@ export function FormInput({
                 {...field}
                 className={className}
                 type={type}
+                pattern={pattern ? pattern : undefined}
               />
             </FormControl>
             <FormMessage />
@@ -108,11 +111,7 @@ type TFormCheckbox = {
   placeholder: string;
 };
 
-export function FormCheckbox({
-  control,
-  name,
-  items,
-}: TFormCheckbox) {
+export function FormCheckbox({ control, name, items }: TFormCheckbox) {
   return (
     <div className="border">
       <FormField

@@ -33,7 +33,7 @@ export default function LoginModalForm() {
   async function handleLogin(data: FieldValues) {
     setIsLoading(true);
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/auth/login`,
+      `/api/auth/login`,
       {
         method: "POST",
         headers: {
