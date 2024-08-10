@@ -41,7 +41,7 @@ export default function RegisterModalForm() {
   async function handleRegister(data: FieldValues) {
     setIsLoading(true);
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/auth/register`,
+      `/api/auth/register`,
       {
         method: "POST",
         headers: {

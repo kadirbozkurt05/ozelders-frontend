@@ -19,7 +19,7 @@ export default function ProfileMenu() {
 
   async function handleLogout() {
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/auth/logout`,
+      `/api/auth/logout`,
       {
         method: "POST",
         credentials: "include",

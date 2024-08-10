@@ -10,3 +10,8 @@ export type TLesson = {
   _id: string;
   label: string;
 };
+
+export type TLessonPlace = {
+  _id: string;
+  label: string;
+};

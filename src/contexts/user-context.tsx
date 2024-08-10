@@ -27,16 +27,13 @@ export default function UserProvider({
 
   const getUser = useCallback(async () => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/auth/profile`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch("/api/auth/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
 
       if (response.ok) {
         const data: TUser = await response.json();
