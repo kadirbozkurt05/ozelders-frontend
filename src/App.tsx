@@ -10,6 +10,8 @@ import LoginModal from "./components/modals/login/login-modal";
 import RegisterModal from "./components/modals/register/register-modal";
 import TermsOfService from "./pages/terms/termsOfService";
 import PrivacyPolicy from "./pages/privacy/privacy-policy";
+import ReturnPolicy from "./pages/return/return-conditions";
+import SalesContract from "./pages/sales-contract/sales-contract";
 
 export default function App() {
   return (
@@ -22,9 +24,11 @@ export default function App() {
         <div className="w-full min-h-screen pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/teacher-register" element={<TeacherRegister />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/ogretmen-kaydi" element={<TeacherRegister />} />
+            <Route path="/sartlar-ve-kosullar" element={<TermsOfService />} />
+            <Route path="/gizlilik-sozlesmesi" element={<PrivacyPolicy />} />
+            <Route path="/iade-sartlari" element={<ReturnPolicy />} />
+            <Route path="/mesafeli-satis-sozlesmesi" element={<SalesContract />} />
           </Routes>
         </div>
       </Router>
