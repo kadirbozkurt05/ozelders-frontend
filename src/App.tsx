@@ -9,6 +9,7 @@ import TeacherRegister from "./pages/teacher-register/teacher-register";
 import LoginModal from "./components/modals/login/login-modal";
 import RegisterModal from "./components/modals/register/register-modal";
 import TermsOfService from "./pages/terms/termsOfService";
+import PrivacyPolicy from "./pages/privacy/privacy-policy";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/teacher-register" element={<TeacherRegister />} />
             <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </div>
       </Router>
