@@ -21,7 +21,7 @@ export default function Card({title, subtitle, number, image, classNameNumber}:T
                 <div>
                     <Heading classNameTitle="md:text-4xl text-2xl" classNameSubtitle="md:text-l text-s" title={title} subtitle={subtitle} />
                 </div>
-                <img alt="image" className="max-w-[200px] md:max-w-full md:w-full" src={image} />
+                <img alt="image" className="max-w-[200px] md:max-w-full rounded-xl md:w-full" src={image} />
                     
 
             </div>

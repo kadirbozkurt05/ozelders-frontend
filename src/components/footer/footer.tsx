@@ -10,7 +10,7 @@ export default function Footer() {
   const {user} = useUser();
 
   return (
-    <footer >
+    <footer className="mt-3">
         <Separator />
         <Container>
         <Container>
@@ -106,7 +106,7 @@ export default function Footer() {
           </div>
         </Container>
       </Container>
-      <div className=" bg-rose-100 flex h-14 flex-col justify-center">
+      <div className="  flex h-14 flex-col justify-center">
       <Container className="flex w-full justify-between" >
         <div >
           <span className="text-sm text-gray-500 dark:text-gray-300 sm:text-center">
