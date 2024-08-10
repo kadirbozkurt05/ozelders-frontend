@@ -12,6 +12,7 @@ import TermsOfService from "./pages/terms/termsOfService";
 import PrivacyPolicy from "./pages/privacy/privacy-policy";
 import ReturnPolicy from "./pages/return/return-conditions";
 import SalesContract from "./pages/sales-contract/sales-contract";
+import Footer from "./components/footer/footer";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
             <Route path="/mesafeli-satis-sozlesmesi" element={<SalesContract />} />
           </Routes>
         </div>
+        <Footer/>
       </Router>
     </div>
   );
