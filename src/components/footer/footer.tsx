@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 import Container from "../container";
 import { Separator } from "@/components/ui/separator";
+import useLoginModal from "../modals/login/use-login-modal";
+import { useUser } from "@/contexts/user-context";
+
 
 export default function Footer() {
+  const loginModal = useLoginModal();
+  const {user} = useUser();
+
   return (
     <footer >
         <Separator />
@@ -59,7 +65,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li className="mb-4">
-                  <Link to="/" className="hover:underline">
+                  <Link to="/ogretmen-kaydi" className="hover:underline">
                     Özel Ders Vermek İstiyorum
                   </Link>
                 </li>
@@ -81,15 +87,15 @@ export default function Footer() {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <Link to="/" className="hover:underline">
+                  {!user && <div onClick={() => loginModal.open()} className="hover:underline cursor-pointer">
                     Giriş Yap
-                  </Link>
+                  </div>}
                 </li>
-                <li className="mb-4">
+                {!user && <li  className="mb-4">
                   <Link to="/" className="hover:underline">
                     Kayıt Ol
                   </Link>
-                </li>
+                </li>}
                 <li className="mb-4">
                   <Link to="/" className="hover:underline">
                     Üst Sıralarda Gözükme İpuçları

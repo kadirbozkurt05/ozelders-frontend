@@ -49,7 +49,7 @@ export default function ProfileMenu() {
           <div className="flex flex-row items-center text-sm gap-2 lg:gap-4">
             <div
               className="p-1 lg:px-4 lg:py-2 hover:bg-accent"
-              onClick={() => navigate("/teacher-register")}
+              onClick={() => navigate("/ogretmen-kaydi")}
             >
               Ders verin
             </div>
