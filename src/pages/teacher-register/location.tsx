@@ -40,8 +40,6 @@ export default function Location({ form }: { form: any }) {
     fetchCities();
   }, [search]);
 
-  console.log(cities);
-
   const city = form.watch("city");
 
   useEffect(() => {
@@ -64,7 +62,7 @@ export default function Location({ form }: { form: any }) {
   return (
     <div className="flex flex-col gap-4 pt-4 lg:pt-8">
       <Heading
-        title="Nerede ders vereceksiniz?"
+        title="Yeriniz"
         subtitle="Yasadiginiz ili ve ilceyi girin"
       />
       <Input
