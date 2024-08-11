@@ -1,12 +1,16 @@
+import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
+import { format } from "date-fns";
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import {
   Select,
   SelectContent,
@@ -14,6 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { Textarea } from "./ui/textarea";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "./ui/calendar";
+import { cn } from "@/lib/utils";
 
 type TFormInput = {
   control: any;
@@ -161,5 +169,101 @@ export function FormCheckbox({ control, name, items }: TFormCheckbox) {
         )}
       />
     </div>
+  );
+}
+
+type TFormTextArea = {
+  control: any;
+  name: string;
+  label: string;
+  placeholder: string;
+};
+
+export function FormTextArea({
+  control,
+  name,
+  label,
+  placeholder,
+}: TFormTextArea) {
+  return (
+    <>
+      <FormField
+        control={control}
+        name={name}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{label}</FormLabel>
+            <FormControl>
+              <Textarea
+                placeholder={placeholder}
+                className="resize-none"
+                {...field}
+              />
+            </FormControl>
+            <FormDescription>
+              You can <span>@mention</span> other users and organizations.
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
+  );
+}
+
+type TFormCalendar = {
+  control: any;
+  name: string;
+  label: string;
+};
+
+export function FormCalendar({ control, name, label }: TFormCalendar) {
+  return (
+    <>
+      <FormField
+        control={control}
+        name={name}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel>{label}</FormLabel>
+            <Popover>
+              <PopoverTrigger asChild>
+                <FormControl>
+                  <Button
+                    variant={"custom"}
+                    className={cn(
+                      "w-full pl-3 text-left font-normal bg-white text-black border rounded-sm",
+                      !field.value && "text-muted-foreground"
+                    )}
+                  >
+                    {field.value ? (
+                      format(field.value, "PPP")
+                    ) : (
+                      <span>Bir tarih seciniz</span>
+                    )}
+                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                  </Button>
+                </FormControl>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={field.value}
+                  onSelect={field.onChange}
+                  disabled={(date) =>
+                    date > new Date() || date < new Date("1900-01-01")
+                  }
+                  initialFocus
+                  captionLayout="dropdown-buttons"
+                  fromYear={1900}
+                  toYear={2024}
+                />
+              </PopoverContent>
+            </Popover>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
   );
 }

@@ -20,7 +20,7 @@ export default function Place({ control }: { control: any }) {
       <FormCheckbox
         control={control}
         placeholder="Vermek istediginiz dersleri secin"
-        name="lessonplaces"
+        name="lessonPlaces"
         items={lessonPlaces}
       />
     </>
