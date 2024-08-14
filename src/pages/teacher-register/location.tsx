@@ -41,6 +41,7 @@ export default function Location({ form }: { form: any }) {
   }, [search]);
 
   const city = form.watch("city");
+  const district = form.watch("district");
 
   useEffect(() => {
     const fetchDistricts = async () => {
@@ -61,76 +62,66 @@ export default function Location({ form }: { form: any }) {
 
   return (
     <div className="flex flex-col gap-4 pt-4 lg:pt-8">
-      <Heading
-        title="Yeriniz"
-        subtitle="Yasadiginiz ili ve ilceyi girin"
-      />
+      <Heading title="Yeriniz" subtitle="Yasadiginiz ili ve ilceyi girin" />
+      <p className="font-light text-neutral-500">
+        {city} {district && ` - ${district}`}
+      </p>
       <Input
         type="text"
         placeholder="Yasadiginiz ili ve ilceyi girin"
         onChange={(e) => setSearch(e.currentTarget.value)}
       />
-      {cities.length > 0 && (
-        <>
-          <FormField
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Ilinizi secin" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {cities.map((option, index) => (
-                      <SelectItem key={index} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </>
-      )}
 
-      {districts.length > 0 && (
-        <>
-          <FormField
-            control={form.control}
-            name="district"
-            render={({ field }) => (
-              <FormItem>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Ilcenizi secin" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {districts.map((option, index) => (
-                      <SelectItem key={index} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </>
-      )}
+      <>
+        <FormField
+          control={form.control}
+          name="city"
+          render={({ field }) => (
+            <FormItem>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Ilinizi secin" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {cities.map((option, index) => (
+                    <SelectItem key={index} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </>
+      <>
+        <FormField
+          control={form.control}
+          name="district"
+          render={({ field }) => (
+            <FormItem>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Ilcenizi secin" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {districts.map((option, index) => (
+                    <SelectItem key={index} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </>
     </div>
   );
 }

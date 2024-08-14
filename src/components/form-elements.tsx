@@ -22,6 +22,7 @@ import { Textarea } from "./ui/textarea";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "./ui/calendar";
 import { cn } from "@/lib/utils";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 type TFormInput = {
   control: any;
@@ -57,6 +58,10 @@ export function FormInput({
                 className={className}
                 type={type}
                 pattern={pattern ? pattern : undefined}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  field.onChange(type === "number" ? Number(value) : value);
+                }}
               />
             </FormControl>
             <FormMessage />
@@ -142,13 +147,13 @@ export function FormCheckbox({ control, name, items }: TFormCheckbox) {
                         <FormControl>
                           <Checkbox
                             className="w-5 h-5"
-                            checked={field.value?.includes(item._id)}
+                            checked={field.value?.includes(item.label)}
                             onCheckedChange={(checked) => {
                               return checked
-                                ? field.onChange([...field.value, item._id])
+                                ? field.onChange([...field.value, item.label])
                                 : field.onChange(
                                     field.value?.filter(
-                                      (value: any) => value !== item._id
+                                      (value: any) => value !== item.label
                                     )
                                   );
                             }}
@@ -260,6 +265,49 @@ export function FormCalendar({ control, name, label }: TFormCalendar) {
                 />
               </PopoverContent>
             </Popover>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
+  );
+}
+
+type TFormRadio = {
+  control: any;
+  name: string;
+  label: string;
+  items: any[];
+};
+
+export function FormRadio({ control, name, label, items }: TFormRadio) {
+  return (
+    <>
+      <FormField
+        control={control}
+        name={name}
+        render={({ field }) => (
+          <FormItem className="space-y-3">
+            <FormLabel>{label}</FormLabel>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className="flex flex-col space-y-1"
+              >
+                {items.map((item) => (
+                  <FormItem
+                    key={item}
+                    className="flex items-center space-x-3 space-y-0"
+                  >
+                    <FormControl>
+                      <RadioGroupItem value="all" />
+                    </FormControl>
+                    <FormLabel className="font-normal">{item}</FormLabel>
+                  </FormItem>
+                ))}
+              </RadioGroup>
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}

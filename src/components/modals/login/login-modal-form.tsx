@@ -48,8 +48,8 @@ export default function LoginModalForm() {
       setIsLoading(false);
       return toast.error(resData.error);
     }
-    refreshUser();
     toast.success("Logged in successfully");
+    refreshUser();
     form.reset();
     setIsLoading(false);
     loginModal.close();

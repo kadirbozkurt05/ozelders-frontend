@@ -33,8 +33,6 @@ export default function LessonLocation({ form }: { form: any }) {
     fetchDistricts();
   }, [city]);
 
-  console.log("lessonDistricts", lessonDistricts);
-
   return (
     <div>
       <Heading
