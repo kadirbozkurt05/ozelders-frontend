@@ -7,8 +7,6 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { IoIosMenu } from "react-icons/io";
 
-
-
 export default function ProfileMenu() {
   const navigate = useNavigate();
   const loginModal = useLoginModal();
@@ -18,23 +16,22 @@ export default function ProfileMenu() {
   const handleOpen = useCallback(() => setIsOpen((prev) => !prev), []);
 
   async function handleLogout() {
-    const response = await fetch(
-      `/api/auth/logout`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`/api/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       const resData = await response.json();
       return toast.error(resData.error);
     }
-    refreshUser();
+
+    toast.info("Logged out successfully.");
     navigate("/");
+    refreshUser();
   }
 
   return (

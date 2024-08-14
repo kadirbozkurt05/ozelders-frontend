@@ -9,9 +9,9 @@ export default function Home() {
   return (
     <>
       <LandingCard />
+      <pre>{JSON.stringify(user, null, 2)}</pre>
       <Container>
-      <HowItWorks />
-
+        <HowItWorks />
       </Container>
     </>
   );
