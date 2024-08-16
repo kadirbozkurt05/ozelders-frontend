@@ -14,6 +14,7 @@ export default function Footer() {
         <Separator />
         <Container>
         <Container>
+          <div>DENEME</div>
           <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
