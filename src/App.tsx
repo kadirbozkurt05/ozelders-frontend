@@ -12,6 +12,7 @@ import PrivacyPolicy from "./pages/privacy/privacy-policy";
 import ReturnPolicy from "./pages/return/return-conditions";
 import SalesContract from "./pages/sales-contract/sales-contract";
 import Footer from "./components/footer/footer";
+import RegisterTeacher from "./pages/register-teacher/register-teacher.tsx";
 
 import UserProvider from "./contexts/user-context.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -45,6 +46,7 @@ export default function App() {
                   path="/mesafeli-satis-sozlesmesi"
                   element={<SalesContract />}
                 />
+                <Route path="/ogretmen-kayit" element={<RegisterTeacher />} />
               </Routes>
             </div>
             <Footer />
