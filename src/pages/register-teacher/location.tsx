@@ -2,6 +2,7 @@ import Heading from "@/components/heading";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
+import LeftSide from "./left-side";
 
 type TLocation = {
   city: string;
@@ -110,13 +111,36 @@ export default function location({
     };
   }, []);
 
+  const childNode = (
+    <div className=" md:mr-16 md:w-full bg-rose-100 rounded-3xl flex flex-col md:order-1 order-2 p-6  ">
+      <div>
+        <br />
+        <p>
+          Lütfen yaşadığınız il ve ilçeyi seçin.
+        </p>
+        <br />
+        <p>
+          Bu bilgiyle sizinle aynı yerde yaşayan ve orada ders talebi olan öğrencilerle
+          iletişim kurabileceksiniz.
+        </p>
+        <br />
+        <p>
+          Merak etmeyin, ders vermek istediğiniz yer yaşadığınız ilçeyle sınırlı değil. Bir sonraki adımda ders verebileceğiniz diğer ilçeleri de seçebileceksiniz.
+        </p>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="relative">
+    <div className="flex flex-col md:px-32  md:py-16 md:flex-row gap-4 md:m-6 w-full">
+      <LeftSide children={childNode} />
+    <div className="w-full flex flex-col md:order-2 shadow-lg p-4 md:pl-10 md:flex-row gap-4">
+    <div className="relative w-full">
       <div className="py-4">
         <Heading
           title="Konum"
           subtitle="
-          Yasadiginiz ili ve ilceyi girin
+          Yaşadığınız şehri ve ilçeyi seçin.
         "
         />
       </div>
@@ -184,7 +208,6 @@ export default function location({
         onFocus={() => setShowDistrictDropdown(true)}
         readOnly={!city}
       />
-
       <div className="w-full" ref={districtsRef}>
         {showDistrictDropdown && districts.length > 0 && (
           <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-sm">
@@ -203,6 +226,8 @@ export default function location({
           </ul>
         )}
       </div>
+    </div>
+    </div>
     </div>
   );
 }
