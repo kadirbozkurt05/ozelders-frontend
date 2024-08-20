@@ -1,13 +1,15 @@
 import Heading from "@/components/heading";
+import LeftSide from "./left-side";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import LeftSide from "./left-side";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import { useTeacherInfoStore } from "@/contexts/teacher-info";
 import { useNavigate } from "react-router-dom";
+import { UploadWidget } from "@/components/upload-widget";
 
 export default function Additional() {
   const { setTeacherInfo } = useTeacherInfoStore();
@@ -28,6 +30,18 @@ export default function Additional() {
 
     if (about.length < 20) {
       toast.error("Hakkınızda kısmı en az 20 karakter olmalıdır.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!imageUrl) {
+      toast.error("Profil resmi yüklemelisiniz.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (imageUrl && !imageUrl.includes("cloudinary")) {
+      toast.error("Lütfen geçerli bir resim yükleyin.");
       setIsLoading(false);
       return;
     }
@@ -57,6 +71,8 @@ export default function Additional() {
 
     toast.success("Kayıt başarılı. Anasayfaya yönlendiriliyorsunuz.");
   }
+
+  console.log("imageUrl", imageUrl);
 
   const childNode = (
     <div className=" md:mr-16 md:w-full bg-rose-100 rounded-3xl flex flex-col md:order-1 order-2 p-6  ">
@@ -90,16 +106,8 @@ export default function Additional() {
           <div className="w-full my-4">
             <Heading title="Ek Bilgiler" subtitle="Ek bilgilerinizi ekleyin." />
           </div>
-          <Label
-            onClick={() => {
-              setImageUrl(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL_JlCFnIGX5omgjEjgV9F3sBRq14eTERK9w&s"
-              );
-            }}
-          >
-            Profil Resmi
-          </Label>
-          <div className="w-full flex justify-center">
+          <Label>Profil Resmi</Label>
+          <div className="w-full flex justify-center relative">
             <img
               src={
                 imageUrl
@@ -111,6 +119,7 @@ export default function Additional() {
               height={200}
               className="rounded-full"
             />
+            <UploadWidget setImageUrl={setImageUrl} />
           </div>
           <Label>Video Linkiniz (Opsiyonel)</Label>
           <Input
