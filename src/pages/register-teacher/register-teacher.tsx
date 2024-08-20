@@ -38,9 +38,10 @@ export default function RegisterTeacher() {
           teacherInfo.lessonPlaces.length === 1 &&
           teacherInfo.lessonPlaces[0] === "Online"
         ) {
-          return setStep(STEPS.LESSONS);
+          setStep(STEPS.LESSONS);
+        } else {
+          setStep(STEPS.LOCATION);
         }
-        setStep(STEPS.LOCATION);
       }
 
       if (teacherInfo.address.city && teacherInfo.address.district) {
@@ -64,9 +65,7 @@ export default function RegisterTeacher() {
       {step === STEPS.LOCATION && <Location />}
       {step === STEPS.LESSONDISTRICTS && <LessonDistricts />}
       {step === STEPS.LESSONS && <Lessons />}
-      {step === STEPS.ADDITIONAL && (
-        <Additional />
-      )}
+      {step === STEPS.ADDITIONAL && <Additional />}
     </Container>
   );
 }

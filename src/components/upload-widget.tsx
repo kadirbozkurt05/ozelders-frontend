@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { useEffect, useRef, useState } from "react";
+import { Pencil } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 type Props = {
   setImageUrl: any;
@@ -8,21 +8,8 @@ type Props = {
 export function UploadWidget({ setImageUrl }: Props) {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
-  const [preset, setPreset] = useState<string | null>(null);
-  const [cloudName, setCloudName] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCloudinary = async () => {
-      const response = await fetch("/api/cloudinary");
-      const data = await response.json();
-      setPreset(data.preset);
-      setCloudName(data.cloudName);
-
-      console.log(data);
-    };
-
-    fetchCloudinary();
-  }, []);
+  const preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
   useEffect(() => {
     // @ts-ignore
@@ -62,25 +49,22 @@ export function UploadWidget({ setImageUrl }: Props) {
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {
-          setImageUrl((prev: any) => [...prev, result.info.secure_url]);
+          setImageUrl(result.info.secure_url);
         }
       }
     );
   }, []);
 
   return (
-    <div>
-      <Button
-        className="m-0"
-        variant="ghost"
+    <>
+      <Pencil
+      className="absolute top-0 right-0 cursor-pointer "
         onClick={(e) => {
           e.preventDefault();
           // @ts-ignore
           widgetRef.current.open();
         }}
-      >
-        Upload Images
-      </Button>
-    </div>
+      />
+    </>
   );
 }
