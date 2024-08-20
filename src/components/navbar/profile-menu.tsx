@@ -1,16 +1,20 @@
 import Avatar from "./avatar";
 import useLoginModal from "../modals/login/use-login-modal";
+import useTeacherRegisterModal from "../modals/teacher-register/use-teacher-register-modal";
 
 import { useCallback, useState } from "react";
 import { useUser } from "@/contexts/user-context";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { IoIosMenu } from "react-icons/io";
+import { useTeacherInfoStore } from "@/contexts/teacher-info";
 
 export default function ProfileMenu() {
   const navigate = useNavigate();
   const loginModal = useLoginModal();
+  const teacherRegisterModal = useTeacherRegisterModal();
   const { user, refreshUser } = useUser();
+  const { refreshTeacherInfo } = useTeacherInfoStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = useCallback(() => setIsOpen((prev) => !prev), []);
@@ -31,6 +35,7 @@ export default function ProfileMenu() {
 
     toast.info("Logged out successfully.");
     navigate("/");
+    refreshTeacherInfo();
     refreshUser();
   }
 
@@ -46,7 +51,7 @@ export default function ProfileMenu() {
           <div className="flex flex-row items-center text-sm gap-2 lg:gap-4">
             <div
               className="p-1 lg:px-4 lg:py-2 hover:bg-accent"
-              onClick={() => navigate("/ogretmen-kayit")}
+              onClick={() => teacherRegisterModal.open()}
             >
               Ders verin
             </div>

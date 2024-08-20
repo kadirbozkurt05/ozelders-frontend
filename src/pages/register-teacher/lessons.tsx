@@ -1,28 +1,25 @@
-import { useState, useEffect, useRef } from "react";
-import { Input } from "@/components/ui/input";
+import LeftSide from "./left-side";
 import Heading from "@/components/heading";
 
+import { useState, useEffect, useRef } from "react";
+import { Input } from "@/components/ui/input";
 import { IoMdClose } from "react-icons/io";
 import { Label } from "@/components/ui/label";
-import LeftSide from "./left-side";
+import { Button } from "@/components/ui/button";
+import { useTeacherInfoStore } from "@/contexts/teacher-info";
+import { toast } from "react-toastify";
 
-export default function Lessons({
-  lessons,
-  setLessons,
-  lessonPrice,
-  setLessonPrice,
-}: {
-  lessons: any;
-  setLessons: any;
-  lessonPrice: number;
-  setLessonPrice: any;
-}) {
+export default function Lessons() {
+  const { setTeacherInfo } = useTeacherInfoStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [lessons, setLessons] = useState<string[]>([]);
+  const [lessonPrice, setLessonPrice] = useState<number>(0);
+
   const [search, setSearch] = useState<string>("");
   const [items, setItems] = useState<any[]>([]);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  console.log(lessonPrice);
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -57,27 +54,60 @@ export default function Lessons({
     };
   }, []);
 
+  async function handleClick() {
+    setIsLoading(true);
+    if (lessons.length === 0) {
+      toast.error("En az bir ders seçmelisiniz.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (lessonPrice === 0) {
+      toast.error("Ders ücretini girmelisiniz.");
+      setIsLoading(false);
+      return;
+    }
+
+    const response = await fetch(`/api/teacher-info`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ lessons, lessonPrice }),
+    });
+
+    if (!response.ok) {
+      toast.error("Bir hata oluştu. Lütfen tekrar deneyin.");
+      setIsLoading(false);
+      return;
+    }
+
+    const data = await response.json();
+    setTeacherInfo(data);
+    setIsLoading(false);
+
+    toast.success("Dersler başarıyla eklendi.");
+  }
+
   const childNode = (
     <div className=" md:mr-16 md:w-full bg-rose-100 rounded-3xl flex flex-col md:order-1 order-2 p-6  ">
       <div>
         <br />
-        <p>
-          Hangi dersleri vermek istediğinizi belirtin.
-        </p>
+        <p>Hangi dersleri vermek istediğinizi belirtin.</p>
+        <br />
+        <p>Ders sürenizin ne kadar olduğunu dakika cinsinden belirtin.</p>
         <br />
         <p>
-          Ders sürenizin ne kadar olduğunu dakika cinsinden belirtin.
-        </p>
-        <br />
-        <p>
-          Son olarak bir ders seansı ücretinizi belirtin. Unutmayın ders seansı yukarıda belirttiğiniz süre kadardır.
+          Son olarak bir ders seansı ücretinizi belirtin. Unutmayın ders seansı
+          yukarıda belirttiğiniz süre kadardır.
         </p>
       </div>
     </div>
   );
 
   return (
-    <div className="flex flex-col md:px-32  md:py-16 md:flex-row gap-4 md:m-6 w-full">
+    <div className="w-full flex flex-col md:flex-row">
       <LeftSide children={childNode} />
       <div className="w-full flex flex-col md:order-2 shadow-lg p-4 md:pl-10 md:flex-row gap-4">
         <div className="relative w-full">
@@ -129,9 +159,18 @@ export default function Lessons({
           <Input
             type="number"
             value={lessonPrice}
-            onChange={(e) => setLessonPrice(e.currentTarget.value)}
+            onChange={(e) => setLessonPrice(Number(e.currentTarget.value))}
             placeholder="Ders ucretini girin"
           />
+          <div className="flex flex-row gap-4 mt-4 lg:mt-8">
+            <Button
+              variant={"outline"}
+              onClick={handleClick}
+              disabled={isLoading}
+            >
+              Devam
+            </Button>
+          </div>
         </div>
       </div>
     </div>

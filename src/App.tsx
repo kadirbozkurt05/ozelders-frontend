@@ -13,9 +13,12 @@ import ReturnPolicy from "./pages/return/return-conditions";
 import SalesContract from "./pages/sales-contract/sales-contract";
 import Footer from "./components/footer/footer";
 import RegisterTeacher from "./pages/register-teacher/register-teacher.tsx";
-
+import TeacherRegisterModal from "./components/modals/teacher-register/teacher-register-modal.tsx";
 import UserProvider from "./contexts/user-context.tsx";
+import ScrollToTop from "./components/scroll-to-top.tsx";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import TeacherInfoInit from "./contexts/teacher-info-init.tsx";
 
 const queryClient = new QueryClient();
 
@@ -25,9 +28,12 @@ export default function App() {
       <ToastContainer position="top-left" autoClose={3000} />
       <QueryClientProvider client={queryClient}>
         <UserProvider>
-          <LoginModal />
-          <RegisterModal />
+          <TeacherInfoInit />
           <Router>
+            <LoginModal />
+            <RegisterModal />
+            <TeacherRegisterModal />
+            <ScrollToTop />
             <Navbar />
             <div className="w-full min-h-screen pt-16">
               <Routes>
