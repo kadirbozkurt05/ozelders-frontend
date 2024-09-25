@@ -1,5 +1,5 @@
 type THeading = {
-  title: string;
+  title?: string;
   subtitle?: string;
   center?: boolean;
   classNameTitle?: string,

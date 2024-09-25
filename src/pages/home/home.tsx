@@ -4,6 +4,8 @@ import { useUser } from "@/contexts/user-context";
 import HowItWorks from "./how-it-works";
 import Container from "@/components/container";
 import { useTeacherInfoStore } from "@/contexts/teacher-info";
+import FindTeacher from "./find-teacher";
+import MeetTeachers from "./meet-teachers";
 
 export default function Home() {
   const { user } = useUser();
@@ -11,9 +13,9 @@ export default function Home() {
 
   return (
     <>
+        <FindTeacher />
       <LandingCard />
-      <pre>{JSON.stringify(user, null, 2)}</pre>
-      <pre>{JSON.stringify(teacherInfo, null, 2)}</pre>
+      <MeetTeachers />
       <Container>
         <HowItWorks />
       </Container>

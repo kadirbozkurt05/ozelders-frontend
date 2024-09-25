@@ -1,29 +1,36 @@
 import Heading from "@/components/heading";
 
 type THowItWorks = {
-    title:string,
-    subtitle:string,
-    number:number,
-    image:string,
-    classNameNumber?:string
-}
+  title: string;
+  subtitle: string;
+  classNameNumber?: string;
+  image?: string;
+};
 
+export default function Card({
+  title,
+  subtitle,
+  image,
+}: THowItWorks) {
+  return (
+    <div className="flex lg:p-8 p-3 min-w-72 flex-col border shadow-lg rounded-xl border-black lg:gap-3 w-screen lg:w-full  justify-center">
+      <div >
+        <div className="lg:text-lg text-m flex justify-between">
+        <Heading classNameTitle="lg:text-4xl text-2xl" classNameSubtitle="lg:text-l text-s" title={title}/>
 
-
-
-export default function Card({title, subtitle, number, image, classNameNumber}:THowItWorks){
-    return(
-            <div className="flex p-8 flex-col border rounded-xl border-black gap-3 md:w-full w-screen justify-center">
-                <div className="w-full">
-                <div className="  md:text-lg text-m   flex"><p className={`rounded-xl px-4 py-2 `+ classNameNumber}>{number}</p></div>
-
-                </div>
-                <div>
-                    <Heading classNameTitle="md:text-4xl text-2xl" classNameSubtitle="md:text-l text-s" title={title} subtitle={subtitle} />
-                </div>
-                <img alt="image" className="max-w-[200px] md:max-w-full rounded-xl md:w-full" src={image} />
-                    
-
-            </div>
-    )
+{       image &&   <img
+            src={image}
+            alt={title}
+            className="h-20 hidden lg:flex rounded-full"
+          />}
+        </div>
+      </div>
+      <div>
+        <Heading
+          classNameSubtitle="lg:text-l text-s"
+          subtitle={subtitle}
+        />
+      </div>
+    </div>
+  );
 }
